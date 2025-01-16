@@ -6,7 +6,7 @@ b = np.array([2, -6])
 
 def gradientenverfahren(A, b, x0, iterations):
     x = x0
-    points = [x]  # Speichert die Punkte der Iterationen
+    points = [x]  
     for k in range(iterations):
         r = b - np.dot(A, x)
         alpha = np.dot(r, r) / np.dot(r, np.dot(A, r))
@@ -39,10 +39,7 @@ def plot_gradientenverfahren(A, b, start_points, iterations):
     plt.grid()
     plt.show()
 
-
-# Parameter
 start_points = [np.array([0, 0]), np.array([1, 1]), np.array([-2, -2]), np.array([12/7, -11/7])]
 iterations = 5
 
-# Plot erstellen
 plot_gradientenverfahren(A, b, start_points, iterations)
