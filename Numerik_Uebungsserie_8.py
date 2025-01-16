@@ -7,7 +7,7 @@ b = np.array([2, -6])
 def gradientenverfahren(A, b, x0, iterations):
     x = x0
     points = [x]  # Speichert die Punkte der Iterationen
-    for _ in range(iterations):
+    for k in range(iterations):
         r = b - np.dot(A, x)
         alpha = np.dot(r, r) / np.dot(r, np.dot(A, r))
         x = x + alpha * r
