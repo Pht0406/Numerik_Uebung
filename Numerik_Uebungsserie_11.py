@@ -1,7 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-### 🏆 FFT-Implementation (rekursiv)
 def fft_recursive(f):
     n = len(f)
     if n == 1:
@@ -18,13 +17,12 @@ def fft_recursive(f):
             w *= w_n
         return c
 
-### 🏆 IFFT-Implementation (rekursiv)
 def ifft_recursive(c):
     n = len(c)
     if n == 1:
         return c
     else:
-        w_n = np.exp(2j * np.pi / n)  # Inverse FFT nutzt e^(2πi/n)
+        w_n = np.exp(2j * np.pi / n)  
         w = 1
         c_even = ifft_recursive(c[::2])
         c_odd = ifft_recursive(c[1::2])
@@ -35,25 +33,20 @@ def ifft_recursive(c):
             w *= w_n
         return f
 
-### 📌 Erzeugung der Treppenfunktion
 n = 32
 x = np.linspace(0, 2 * np.pi, n, endpoint=False)
 f_values = np.where(x < np.pi, 0, 1)  # Treppenfunktion
 
-# 🚀 Berechnung der Fourier-Koeffizienten
 c = fft_recursive(f_values)
 
-# 🚀 Verlängerung des Koeffizientenvektors (Zero-Padding für mehr Punkte)
 m = 8 * n
 c_extended = np.zeros(m, dtype=complex)
-c_extended[:n//2] = c[:n//2]  # Positive Frequenzen beibehalten
-c_extended[-(n//2):] = c[-(n//2):]  # Negative Frequenzen einfügen
+c_extended[:n//2] = c[:n//2] 
+c_extended[-(n//2):] = c[-(n//2):] 
 
-# 🚀 Rücktransformation mit erhöhter Punktanzahl
-f_reconstructed = ifft_recursive(c_extended).real  # Nur Realteil
-f_reconstructed /= n  # Skalierungskorrektur (NumPy-Standard)
+f_reconstructed = ifft_recursive(c_extended).real  
+f_reconstructed /= n  # Skalierungskorrektur
 
-### 📈 Korrektes Plotten der Treppenfunktion & Fourier-Rekonstruktion
 x_fine = np.linspace(0, 2 * np.pi, m, endpoint=False)
 plt.figure(figsize=(8, 5))
 plt.plot(x_fine, f_reconstructed, label="Fourier-Rekonstruktion")
